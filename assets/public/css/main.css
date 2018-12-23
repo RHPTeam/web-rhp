@@ -625,6 +625,7 @@ i {
 }
 #project--mix.container-fluid {
 	padding: 0;
+	font-size: 0;
 }
 .p0 {
 	padding: 0;
@@ -1448,6 +1449,23 @@ ul.filter > li > a:focus {
 /*=====================================
 newsletter class start 
 =======================================*/
+.modal--outside {
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.7);
+	z-index: 1054;
+	transition: opacity .3s linear;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.modal--outside.show {
+	opacity: 1;
+	visibility: visible;
+}
 
 .news--letter {
 	position: absolute;
@@ -1461,17 +1479,15 @@ newsletter class start
 	overflow: hidden;
 }
 
-.close {
-	float: right;
-	font-size: 41px;
-	font-weight: 700;
-	line-height: 50px;
-	color: #000;
-	z-index: 99999;
+.modal--close {
 	position: absolute;
-	right: -64%;
-	top: 125px;
-	opacity: 0.5;
+    right: 20px;
+	top: 20px;
+	cursor: pointer;	
+}
+
+.modal--close i {
+	font-size: 20px;
 }
 
 .letter--inner {

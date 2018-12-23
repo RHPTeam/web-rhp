@@ -36,6 +36,7 @@
 	</head>
 	<body>
 		<div id="preloader"><div id="loader"></div></div>
+		<!-- ./ End: Preloader -->
 		<section id="header" class="header">
 			<div class="nav">
 				<div class="container">
@@ -783,10 +784,8 @@
 				</li>
 				<li>
 					<a
-						href="#enquirypopup"
-						title="Newsletter"
-						data-toggle="modal"
-						data-target="#enquirypopup"
+            title="Newsletter"
+            class="open--modal"
 						><i class="far fa-newspaper"></i>Newsletter</a
 					>
 				</li>
@@ -795,32 +794,26 @@
 		<!-- Get_social part end -->
 
 		<!-- Letter head part start -->
-		<section>
-			<div id="enquirypopup" class="modal fade in" role="dialog">
-				<div class="modal-dialog">
-					<div class="row">
-						<button type="button" class="close" data-dismiss="modal">×</button>
-						<div class="modal-body">
-							<div id="letter" class="news--letter">
-								<div class="letter--inner">
-									<img src="assets/public/images/logo.png" alt="" />
-									<H2>Sign up for Newsletter</H2>
-									<P
-										>If you sign up for our newsletter, you will never miss a
-										single news or updates from our website. So, Don‘t waste a
-										single seconds of time, Sign up now.</P
-									>
-									<div class="input-group">
-										<input
-											type="email"
-											class="form-controls"
-											placeholder="Your E-mail Here"
-										/>
-										<button class="button btn-default">Subscribe</button>
-									</div>
-								</div>
-							</div>
-						</div>
+		<section id="modalNew" class="modal--outside">
+			<div id="letter" class="news--letter">
+				<div class="letter--inner">
+					<span class="modal--close">
+						<i class="fas fa-times"></i>
+          </span>
+					<img src="assets/public/images/logo.png" alt="" />
+					<H2>Sign up for Newsletter</H2>
+					<P
+						>If you sign up for our newsletter, you will never miss a single
+						news or updates from our website. So, Don‘t waste a single seconds
+						of time, Sign up now.</P
+					>
+					<div class="input-group">
+						<input
+							type="email"
+							class="form-controls"
+							placeholder="Your E-mail Here"
+						/>
+						<button class="button btn-default">Subscribe</button>
 					</div>
 				</div>
 			</div>

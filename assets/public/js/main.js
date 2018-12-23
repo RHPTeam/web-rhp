@@ -13,7 +13,6 @@
 
 	// Mix js
 	var containerEl = document.querySelector("#project--mix");
-	//    var mixer = mixitup(containerEl);
 	var mixer = mixitup(containerEl, {
 		selectors: {
 			target: ".mix"
@@ -134,17 +133,26 @@
 		});
 	});
 
-    // newsletter
-    $(window).on('load', function(){ 
-        setTimeout(function() {
-			$("#enquirypopup").modal("show");
-		}, 100);
-    });
+	// newsletter
+	$(window).on("load", function() {
+		setTimeout(function() {
+			$("#modalNew").addClass('show');
+		}, 2000);
+  });
 
-    //Preloader
-    $(window).on('load', function(){ 
-        $("#preloader").fadeOut(1000);
-    });
+  var iconCloseNew = $('.modal--close');
+  iconCloseNew.on("click", function() {
+		$("#modalNew").removeClass('show');
+  });
+  $('.open--modal').on('click', function() {
+    $("#modalNew").addClass('show');
+  })
+  
+
+	//Preloader
+	$(window).on("load", function() {
+		$("#preloader").fadeOut(1000);
+	});
 
 	// bottom to top
 	$(window).scroll(function() {
