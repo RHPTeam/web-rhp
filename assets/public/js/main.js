@@ -96,8 +96,8 @@
 			{
 				breakpoint: 600,
 				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2
+					slidesToShow: 1,
+					slidesToScroll: 1
 				}
 			},
 			{
@@ -140,12 +140,18 @@
 		}, 2000);
   });
 
+  $(window).on('click', function(e) {
+	  if ($('.news--letter').has(e.target).length == 0 && !$('.news--letter').is(e.target)) {
+		$("#modalNew").removeClass('show');
+	  }
+  })
+
   var iconCloseNew = $('.modal--close');
   iconCloseNew.on("click", function() {
-		$("#modalNew").removeClass('show');
+		$("#modalNew").removeClass('active');
   });
   $('.open--modal').on('click', function() {
-    $("#modalNew").addClass('show');
+    $("#modalNew").addClass('active');
   })
   
 

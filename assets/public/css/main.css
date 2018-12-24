@@ -305,7 +305,7 @@ i {
 
 .banner--image img {
 	position: absolute;
-	margin-top: 14%;
+	margin-top: 266px;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
@@ -1283,7 +1283,7 @@ ul.filter > li > a:focus {
 	-o-border-radius: 50%;
 	border: 2px solid transparent;
 	transition: all 0.6s ease;
-	display: inline-block;
+	/* display: ; */
 	background: #695aa6;
 	text-decoration: none;
 }
@@ -1303,6 +1303,10 @@ ul.filter > li > a:focus {
 
 .one {
 	margin-left: 28%;
+}
+
+.footer--inner.one, .footer--inner.three {
+	margin-left: 0;
 }
 
 .three {
@@ -1425,8 +1429,8 @@ ul.filter > li > a:focus {
 }
 
 .social--icon ul li.tweet a:before {
-	content: "\f17d";
-	font-family: "FontAwesome";
+	content: "\f099";
+	font-family: "Font Awesome 5 Brands";
 	position: absolute;
 	padding-left: 39%;
 	font-size: 25px;
@@ -1434,8 +1438,8 @@ ul.filter > li > a:focus {
 }
 
 .social--icon ul li.tweet a:after {
-	content: "\f099";
-	font-family: "FontAwesome";
+	content: "\f3c7";
+	font-family: "Font Awesome 5 Brands";
 	position: absolute;
 	padding-left: 3%;
 	font-size: 25px;
@@ -1463,6 +1467,11 @@ newsletter class start
 }
 
 .modal--outside.show {
+	opacity: 1;
+	visibility: visible;
+}
+
+.modal--outside.active {
 	opacity: 1;
 	visibility: visible;
 }
