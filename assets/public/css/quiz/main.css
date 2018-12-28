@@ -1,0 +1,335 @@
+/* 
+ Template name : Quiz HTML5 Website
+Author : Sky Albert
+version : 1.0.0
+
+-----------------------------------------------------
+  Table of Contents
+-----------------------------------------------------
+
+    # COMMON STYLE.
+
+Home page :
+     1 / MENU PART. 
+          
+*/
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Baloo+Paaji:400|Sacramento");
+* {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover,
+a:focus {
+	border-color: transparent;
+	text-decoration: none;
+	outline: 0;
+}
+
+img {
+	border: 0;
+}
+
+.clr {
+	clear: both;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+p,
+address,
+strong,
+i {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	line-height: normal;
+}
+
+/*=====================================
+ All common class start 
+=======================================*/
+.wrapper {
+    background: #F7F8FB;
+    display: flex;
+    flex-direction: row;
+}
+
+.btn {
+    background: #fff;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    padding: .85rem 1.75rem;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.btn--blue {
+    background: #58a7cd;
+    border-color: #58a7cd;
+    color: #fff;
+}
+
+.btn--blue:hover {
+    background: #5490ba;
+    border-color: #5490ba;
+}
+/*=====================================
+ All common class end 
+=======================================*/
+
+
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background-color: #2f3245;
+    font-family: "Open Sans", sans-serif;
+}
+
+.menu {
+    position: relative;
+    margin-top: 30px;
+}
+
+.menu .menu--list-item {
+    display: block;
+}
+
+.menu .menu--link {
+    display: block;
+    padding: 20px 40px;
+    color: rgba(255, 2555, 255, .6)
+}
+
+.menu .menu--link:hover {
+    color: rgba(255, 2555, 255, 1);
+}
+
+.menu hr {
+    width: 50%;
+    margin: 20px auto;
+    border-color: rgba(255, 2555, 255, .1);
+}
+
+.menu--link i {
+    margin-right: 10px;
+}
+
+#main {
+    position: relative;
+    max-width: 100%;
+    flex: 0 0 calc(100% - 550px);
+}
+
+.qoute {
+    height: 4rem;
+    background-color: #fff;
+    border: 1px solid #eee;
+    box-shadow: 0 1px 1px #ccc;
+    display: flex;
+    align-items: center;
+    font-family: "Open Sans", sans-serif;
+    color: #2f3245;
+    font-size: 15px;
+    padding: 0 10%;
+}
+
+.qoute .qoute--title {
+    font-weight: 600;
+    color: #2f3245;
+}
+
+.qoute .qoute--title:before {
+    content: "\f35a";
+    font-family: "Font Awesome 5 Free";
+    margin-right: 10px;
+}
+
+.quiz {
+    padding: 4rem 10%;
+    font-family: "Open Sans", sans-serif;
+}
+
+.quiz .quiz--question {
+    font-weight: 600;
+    color: #394b77;
+}
+
+.quiz .quiz--current {
+    color: #45B4D5;
+    text-transform: uppercase;
+}
+
+.quiz--answer {
+    margin-top: 3%;
+}
+
+.quiz--answer .quiz--answer-item {
+    border: 1px solid #eee;
+    background-color: #fff;
+    padding: 2% 4%;
+    cursor: pointer;
+}
+
+.quiz--answer .quiz--answer-item.selected {
+    border: 1px solid #A684CD;
+    box-shadow: 0 1px 1px #A684CD;
+    border-bottom-width: 1px !important;
+}
+
+.quiz--answer .quiz--answer-item:hover {
+    border: 1px solid #A684CD;
+    box-shadow: 0 1px 1px #A684CD;
+}
+
+.quiz--answer .quiz--answer-item:not(:last-child) {
+    border-bottom-width: 0;
+}
+
+.quiz--answer .quiz--answer-item:not(:last-child):hover {
+    border-bottom-width: 1px;
+}
+
+.card .dot--letter {
+    border: 2px solid #394b77;
+    border-radius: 50%;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.quiz--answer-item.selected .dot--letter {
+    color: #A684CD;
+    border: 2px solid #A684CD;
+}
+
+.card .text--answer {
+    font-size: 18px;
+    margin-left: 2%;
+}
+
+.quiz--answer-item.selected .text--answer {
+    color: #A684CD;
+}
+
+.quiz--anwser-explain {
+    margin-top: 3%;
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+.quiz--anwser-explain textarea {
+    width: 100%;
+    border: 1px solid rgb(238, 238, 238);
+    resize: none;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.action {
+    padding: 0 10%;
+}
+
+.area {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 310px;
+    height: 100%;
+    background-color: #2E3244;
+    font-family: "Open Sans", sans-serif;
+}
+
+.complete {
+    background-color: #272939;
+}
+
+.complete .complete--bar {
+    width: 100%;
+    height: 5px;
+    background: inherit;
+}
+
+.complete .complete--bar .complete--status {
+    background: #A684CD;
+    width: 87%;
+    height: 100%;
+}
+
+.complete .complete--content {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    justify-content: center;
+}
+
+.complete .complete--content .percent {
+    font-size: 50px;
+    font-weight: 400;
+    color: #A684CD;
+}
+
+.complete .complete--content p {
+    text-transform: uppercase;
+    color: rgba(255, 2555, 255, .6);
+}
+
+.know {
+    border-top: 1px solid #34384D;
+    padding: 30px 25px;
+}
+
+.know .know--title {
+    font-size: 16px;
+    font-weight: 400;
+    color: #3699BA;
+    text-transform: uppercase;
+}
+
+.know--content-header {
+    display: flex;
+    margin: 10px 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.know--content-header img {
+    width: 100%;
+    height: 70px;
+    width: 60px;
+}
+
+.know--content-header p {
+    margin-left: 15px;
+    color: rgba(255,255,255,0.8);
+}
+
+.know--content-body p {
+    color: rgba(255, 2555, 255, .6);
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 300;
+}
