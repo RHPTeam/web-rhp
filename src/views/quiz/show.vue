@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <app-loading v-if="loading"></app-loading>
     <ul>
       <li v-for="item in quizs">
         <router-link
@@ -18,7 +19,13 @@
     computed: {
       quizs() {
         return this.$store.getters.loadQuizs
+      },
+      loading() {
+        return this.$store.getters.waitLoading
       }
+    },
+    created () {
+      this.$store.dispatch('loadQuizs')
     }
   }
 </script>

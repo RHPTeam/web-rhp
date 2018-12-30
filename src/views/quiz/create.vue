@@ -11,7 +11,7 @@
       <div class="content--answer" v-if="!checked">
         <h3>List Of Answer:</h3>
         <ul>
-          <li v-for="item in quiz.answers">{{ item }}</li>
+          <li v-for="item in quiz.answers" v-bind:key="item">{{ item }}</li>
         </ul>
         <div class="section">
           <input type="text" class="Nhập đáp án..." v-model="anwser">
