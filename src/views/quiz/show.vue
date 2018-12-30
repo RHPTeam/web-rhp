@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <app-loading v-if="loading"></app-loading>
-    <ul>
+    <ul v-else>
       <li v-for="item in quizs">
         <router-link
           tag="a"

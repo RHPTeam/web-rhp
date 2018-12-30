@@ -5,8 +5,8 @@
        <h1>Bạn đã chuẩn bị mọi thứ rồi chứ?</h1>
        <p></p>
        <div class="actions">
-         <button>Sign Up</button>
-         <button>Sign In</button>
+         <router-link tag="button" :to="{ name: 'sign-up' }">Đăng ký</router-link>
+         <router-link tag="button" :to="{ name: 'sign-in' }">Đăng nhập</router-link>
        </div>
      </div>
    </div>

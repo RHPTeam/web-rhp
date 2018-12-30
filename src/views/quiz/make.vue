@@ -1,26 +1,32 @@
 <template>
   <div class="main">
-    <h1>Question {{ showNumberQuestion }}:</h1>
-    <p>{{ showNumberQuestion }}/{{ questions.length < 10 ? '0' + questions.length : questions.length  }}</p>
-    <div class="content">
-      <p>This is content question</p>
-      <h3>{{ questions[currentQuestion - 1].questions }}</h3>
-      <ul>
-        <li v-for="item in questions[currentQuestion - 1].answers">{{ item }}</li>
-      </ul>
-      <div class="explain" v-if="statusExplain">
-        <textarea placeholder="Your explain..." v-model="result.contentExplain"></textarea>
+    <app-loading v-if="loading"></app-loading>
+    <div class="box" v-else>
+      <h1>Question {{ showNumberQuestion }}:</h1>
+      <p>{{ showNumberQuestion }}/{{ questions.length < 10 ? '0' + questions.length : questions.length  }}</p>
+      <div class="content">
+        <p>This is content question</p>
+        <h3>{{ questions[currentQuestion - 1].questions }}</h3>
+        <ul>
+          <li
+            v-for="(item, index) in questions[currentQuestion - 1].answers" v-bind:key="index"
+            @click="choice(index)"
+            :class="{ 'active': index == clickedIndex }">{{ item }}</li>
+        </ul>
+        <div class="explain" v-if="statusExplain">
+          <textarea placeholder="Your explain..." v-model="result.contentExplain"></textarea>
+        </div>
       </div>
-    </div>
-    <button @click="next" v-if="!showFinnish">Next Question</button>
+      <button @click="next" v-if="!showFinnish">Next Question</button>
 
-    <button @click="finnish" v-else>Finnish</button>
-    <button @click="statusExplain = !statusExplain">Add Explain</button>
-    <router-link tag="button" :to="{ name: 'quiz-result' }">View result</router-link>
-    <div class="stats">
-      <div class="bars" style="width: 300px">
-        <div class="bar" :style="{ width: ((currentQuestion - 1) / questions.length) * 100 + '%' }"></div>
-        <h1>{{ ((currentQuestion - 1) / questions.length) * 100 }}%</h1>
+      <button @click="finnish" v-else>Finnish</button>
+      <button @click="statusExplain = !statusExplain">Add Explain</button>
+      <router-link tag="button" :to="{ name: 'quiz-result' }">View result</router-link>
+      <div class="stats">
+        <div class="bars" style="width: 300px">
+          <div class="bar" :style="{ width: ((currentQuestion - 1) / questions.length) * 100 + '%' }"></div>
+          <h1>{{ ((currentQuestion - 1) / questions.length) * 100 }}%</h1>
+        </div>
       </div>
     </div>
   </div>
@@ -40,7 +46,8 @@
         },
         statusExplain: false,
         statusButton: false,
-        currentQuestion: 1
+        currentQuestion: 1,
+        clickedIndex: null
       }
     },
     computed: {
@@ -56,6 +63,9 @@
           return this.statusButton = true
         }
       },
+      loading() {
+        return this.$store.getters.waitLoading
+      },
       questions() {
         return this.$store.getters.loadQuizs
       }
@@ -68,7 +78,7 @@
         // Push data result of user to array data
         const result = {
           questionId: this.questions[this.currentQuestion - 1].id,
-          choice: 1,
+          choice: this.clickedIndex,
           contentExplain: this.result.contentExplain
         }
         const temp = this.userResult.results.push(result)
@@ -82,7 +92,7 @@
         // Push data result of user to array data
         const result = {
           questionId: this.questions[this.currentQuestion - 1].id,
-          choice: 1,
+          choice: this.clickedIndex,
           contentExplain: this.result.contentExplain
         }
         const temp = this.userResult.results.push(result)
@@ -93,7 +103,14 @@
         this.$store.dispatch("createUserResult", this.userResult)
 
         // this.$router.push({ name: 'quiz-start' })
+      },
+      choice (value) {
+        console.log(value + ' value person choiced :))')
+        this.clickedIndex = value
       }
+    },
+    async created () {
+      await this.$store.dispatch('loadQuizs')
     }
   }
 </script>
@@ -110,5 +127,8 @@
 .bar {
   height: 10px;
   background-color: aqua;
+}
+.active {
+  background-color: red;
 }
 </style>
