@@ -22,6 +22,11 @@ export default new Router({
           component: () => import('@/views/quiz/start')
         },
         {
+          path: 'who',
+          name: 'quiz-who',
+          component: () => import('@/views/quiz/student')
+        },
+        {
           path: 'make',
           name: 'quiz-make',
           component: () => import('@/views/quiz/make')

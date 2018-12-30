@@ -9,17 +9,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     quizLibrary: [],
-    userResult: {
-      id: '',
-      userId: '',
-      results: [
-        {
-          questionId: '',
-          choice: '',
-          contentExplain: ''
-        }
-      ]
-    },
+    userResult: null,
     user: null,
     waitLoading: false,
     error: null

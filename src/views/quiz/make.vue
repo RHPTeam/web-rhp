@@ -95,14 +95,12 @@
           choice: this.clickedIndex,
           contentExplain: this.result.contentExplain
         }
-        const temp = this.userResult.results.push(result)
-        console.log(temp)
-        console.log(this.userResult.results)
+        this.userResult.results.push(result)
 
         // Add Data to userResult
         this.$store.dispatch("createUserResult", this.userResult)
 
-        // this.$router.push({ name: 'quiz-start' })
+        this.$router.push({ name: 'quiz-who' })
       },
       choice (value) {
         console.log(value + ' value person choiced :))')
