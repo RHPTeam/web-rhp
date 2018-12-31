@@ -1,16 +1,18 @@
 <template>
   <div class="main">
     <app-loading v-if="loading"></app-loading>
-    <ul v-else>
-      <li v-for="item in quizs">
-        <router-link
-          tag="a"
-
-          :to="{ name: 'info-quiz', params: { quizId: item.id } }">
-          {{ item.question }}
-        </router-link>
-      </li>
-    </ul>
+   <iv class="box box--list" v-else>
+     <router-link tag="button" :to="{ name: 'quiz-manage' }">Quay lại</router-link>
+     <ul>
+       <li v-for="item in quizs">
+         <router-link
+           tag="a"
+           :to="{ name: 'info-quiz', params: { quizId: item.id } }">
+           {{ item.question }}
+         </router-link>
+       </li>
+     </ul>
+   </iv>
   </div>
 </template>
 

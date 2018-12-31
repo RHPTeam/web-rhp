@@ -23,12 +23,12 @@ new Vue({
   template: '<App/>',
   created() {
     firebase.initializeApp({
-      apiKey: "",
-      authDomain: "",
-      databaseURL: "",
-      projectId: "",
-      storageBucket: "",
-      messagingSenderId: ""
+      apiKey: "AIzaSyAAL7YlosaF5PkLFu-bGO57XhHNdBKv2-c",
+      authDomain: "webrhp.firebaseapp.com",
+      databaseURL: "https://webrhp.firebaseio.com",
+      projectId: "webrhp",
+      storageBucket: "webrhp.appspot.com",
+      messagingSenderId: "287565208481"
     })
     firebase.auth().onAuthStateChanged(user => {
       if (user) {

@@ -15,10 +15,11 @@
         </ul>
         <div class="section">
           <input type="text" class="Nhập đáp án..." v-model="anwser">
-          <button @click="addAnswer">Add Answer</button>
+          <button @click="addAnswer" :disabled="!isValid">Add Answer</button>
         </div>
       </div>
       <button @click="addQuiz" :disabled="!formIsValid">Add Quiz</button>
+      <router-link tag="button" :to="{ name: 'quiz-manage' }">Quay lại</router-link>
     </div>
   </div>
 </template>
@@ -56,6 +57,9 @@
     computed: {
       formIsValid() {
         return this.quiz.question !== ''
+      },
+      isValid() {
+        return this.anwser !== ''
       }
     }
   }
