@@ -25,7 +25,7 @@
       }
     },
     created () {
-      this.$store.dispatch('loadQuizs')
+      this.$store.dispatch('loadQuizsUnRand')
     }
   }
 </script>

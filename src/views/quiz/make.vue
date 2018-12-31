@@ -21,7 +21,6 @@
 
       <button @click="finnish" v-else>Finnish</button>
       <button @click="statusExplain = !statusExplain">Add Explain</button>
-      <router-link tag="button" :to="{ name: 'quiz-result' }">View result</router-link>
       <div class="stats">
         <div class="bars" style="width: 300px">
           <div class="bar" :style="{ width: ((currentQuestion - 1) / questions.length) * 100 + '%' }"></div>
@@ -82,8 +81,6 @@
           contentExplain: this.result.contentExplain
         }
         const temp = this.userResult.results.push(result)
-        console.log(temp)
-        console.log(this.userResult.results)
 
         // Next question
         return this.currentQuestion++

@@ -1,8 +1,9 @@
-import Vue from "vue"
-import Vuex from "vuex"
-import * as firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/database'
+import Vue from "vue";
+import Vuex from "vuex";
+import * as firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/database";
+import { arrayRand } from "@/utils/random";
 
 Vue.use(Vuex);
 
@@ -10,151 +11,229 @@ export const store = new Vuex.Store({
   state: {
     quizLibrary: [],
     userResult: null,
+    userInfo: null,
     user: null,
     waitLoading: false,
     error: null
   },
   getters: {
-    loadQuizs (state) {
-      return state.quizLibrary.sort((quizA, quizB) => {
-        return quizA.createdAt > quizB.createdAt;
-      });
+    loadQuizs(state) {
+      if (state.quizLibrary.length < 2) {
+        return state.quizLibrary;
+      } else {
+        return state.quizLibrary.sort((quizA, quizB) => {
+          return quizA.createdAt > quizB.createdAt;
+        });
+      }
     },
-    loadQuiz (state) {
+    loadQuiz(state) {
       return quizId => {
         return state.quizLibrary.find(quiz => {
           return quiz.id === quizId;
         });
       };
     },
-    loadUserResult (state) {
-      return state.userResult
+    loadUserResult(state) {
+      return state.userResult;
     },
-    user (state) {
-      return state.user
+    loadUserInfo(state) {
+      return state.userInfo;
     },
-    waitLoading (state) {
-      return state.waitLoading
+    user(state) {
+      return state.user;
     },
-    error (state) {
-      return state.error
+    waitLoading(state) {
+      return state.waitLoading;
+    },
+    error(state) {
+      return state.error;
     }
   },
   mutations: {
-    setLoadQuizs (state, payload) {
-      state.quizLibrary = payload
+    setLoadQuizs(state, payload) {
+      state.quizLibrary = payload;
     },
-    createQuiz (state, payload) {
+    createQuiz(state, payload) {
       state.quizLibrary.push(payload);
     },
-    createUserResult (state, payload) {
-      state.userResult = payload
+    createUserResult(state, payload) {
+      state.userResult = payload;
     },
-    setUser (state, payload) {
-      state.user = payload
+    createUserInfo(state, payload) {
+      state.userInfo = payload;
     },
-    setLoading (state, payload) {
-      state.waitLoading = payload
+    setUser(state, payload) {
+      state.user = payload;
     },
-    setError (state, payload) {
-      state.error = payload
+    setLoading(state, payload) {
+      state.waitLoading = payload;
     },
-    clearError (state) {
-      state.error = null
+    setError(state, payload) {
+      state.error = payload;
+    },
+    clearError(state) {
+      state.error = null;
     }
   },
   actions: {
-    loadQuizs ({ commit }) {
-      commit('setLoading', true)
-      firebase.database().ref('quizs').once('value')
-      .then(data => {
-        const quizs = []
-        const obj = data.val()
-        for (let key in obj) {
-          quizs.push({
-            id: key,
-            question: obj[key].question,
-            answers: obj[key].answers,
-            createdAt: obj[key].createdAt
-          })
-        }
-        commit('setLoadQuizs', quizs)
-        commit('setLoading', false)
-      })
-      .catch(error => {
-        console.log(error);
-        commit('setLoading', true)
-      })
+    loadQuizsUnRand({ commit }) {
+      commit("setLoading", true);
+      firebase
+        .database()
+        .ref("quizs")
+        .once("value")
+        .then(data => {
+          const quizs = [];
+          const obj = data.val();
+          for (let key in obj) {
+            quizs.push({
+              id: key,
+              question: obj[key].question,
+              answers: obj[key].answers,
+              createdAt: obj[key].createdAt
+            });
+          }
+          commit("setLoadQuizs", quizs);
+          commit("setLoading", false);
+        })
+        .catch(error => {
+          console.log(error);
+          commit("setLoading", true);
+        });
     },
-    createQuiz ({ commit }, payload) {
+    loadQuizs({ commit }) {
+      commit("setLoading", true);
+      firebase
+        .database()
+        .ref("quizs")
+        .once("value")
+        .then(data => {
+          const quizs = [];
+          const obj = data.val();
+          for (let key in obj) {
+            quizs.push({
+              id: key,
+              question: obj[key].question,
+              answers: obj[key].answers,
+              createdAt: obj[key].createdAt
+            });
+          }
+          // Random 30 question
+          const quizRand = arrayRand(quizs, 3);
+          commit("setLoadQuizs", quizRand);
+          commit("setLoading", false);
+        })
+        .catch(error => {
+          console.log(error);
+          commit("setLoading", true);
+        });
+    },
+    createQuiz({ commit }, payload) {
       const quiz = {
         id: Math.random(),
         question: payload.question,
         answers: payload.answers,
         createdAt: payload.createdAt
-      }
+      };
       // Add data to firebase
-      firebase.database().ref('quizs').push(quiz)
+      firebase
+        .database()
+        .ref("quizs")
+        .push(quiz)
         .then(data => {
-          const key = data.key
+          const key = data.key;
           commit("createQuiz", {
             ...quiz,
             id: key
-          })
+          });
         })
         .catch(error => {
-          console.log(error)
-        })
+          console.log(error);
+        });
     },
-    createUserResult ({ commit }, payload) {
+    createUserResult({ commit }, payload) {
       const userResult = {
-        id: Math.random(),
-        userId: Math.random(),
         results: payload.results
-      }
-      commit("createUserResult", userResult)
+      };
+      commit("createUserResult", userResult);
     },
-    signUserUp ({ commit }, payload) {
-      commit('setLoading', true)
-      commit('clearError')
-      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
-      .then(user => {
-        commit('setLoading', false)
-        const newUser = {
-          id: user.user.uid
-        }
-        commit('setUser', newUser)
-      }).catch(error => {
-        commit('setLoading', false)
-        commit('setError', error)
-        console.log(error)
-      })
+    createUserInfo({ commit }, payload) {
+      const userInfo = {
+        nameReal: payload.nameReal,
+        nameDiscord: payload.nameDiscord,
+        ageReal: payload.ageReal,
+        contentSkill: payload.contentSkill,
+        contentIdea: payload.contentIdea
+      };
+      commit("createUserInfo", userInfo);
     },
-    signUserIn ({ commit }, payload) {
-      commit('setLoading', true)
-      commit('clearError')
-      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
-      .then(user => {
-        commit('setLoading', false)
-        const newUser = {
-          id: user.user.uid
-        }
-        commit('setUser', newUser)
-      }).catch(error => {
-        commit('setLoading', false)
-        commit('setError', error)
-        console.log(error)
-      })
+    createResult({ commit, getters }) {
+      const userResult = {
+        userInfo: getters.loadUserInfo,
+        results: getters.loadUserResult.results
+      };
+      firebase
+        .database()
+        .ref("results")
+        .push(userResult)
+        .then(data => {
+          const key = data.key;
+          commit("createUserResult", {
+            ...userResult,
+            id: key
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
-    autoSignIn ({ commit }, payload) {
-      commit('setUser', { id: payload.uid })
+    signUserUp({ commit }, payload) {
+      commit("setLoading", true);
+      commit("clearError");
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(payload.email, payload.password)
+        .then(user => {
+          commit("setLoading", false);
+          const newUser = {
+            id: user.user.uid
+          };
+          commit("setUser", newUser);
+        })
+        .catch(error => {
+          commit("setLoading", false);
+          commit("setError", error);
+          console.log(error);
+        });
     },
-    clearError ({ commit }) {
-      commit('clearError')
+    signUserIn({ commit }, payload) {
+      commit("setLoading", true);
+      commit("clearError");
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(payload.email, payload.password)
+        .then(user => {
+          commit("setLoading", false);
+          const newUser = {
+            id: user.user.uid
+          };
+          commit("setUser", newUser);
+        })
+        .catch(error => {
+          commit("setLoading", false);
+          commit("setError", error);
+          console.log(error);
+        });
     },
-    logout ({ commit }) {
-      firebase.auth().signOut()
-      commit('setUser', null)
+    autoSignIn({ commit }, payload) {
+      commit("setUser", { id: payload.uid });
+    },
+    clearError({ commit }) {
+      commit("clearError");
+    },
+    logout({ commit }) {
+      firebase.auth().signOut();
+      commit("setUser", null);
     }
   }
 });

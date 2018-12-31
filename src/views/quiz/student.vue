@@ -12,6 +12,10 @@
         <input type="text" placeholder="something#2367" v-model="nameDiscord" required>
       </div>
       <div class="form-group">
+        <label>Tuổi của bạn</label>
+        <input type="text" placeholder="something#2367" v-model="ageReal" required>
+      </div>
+      <div class="form-group">
         <label>Bạn đang học:</label>
         <input type="text" placeholder="HTML, CSS,..." v-model="contentSkill" required>
       </div>
@@ -20,7 +24,7 @@
         <textarea cols="30" rows="10" placeholder="Bọn mình rất muốn nhận được ý kiến từ bạn..." v-model="contentIdea" required></textarea>
         <p>=)) Number words: {{ numberWords > 0 ? numberWords : 0 }}</p>
       </div>
-      <button type="submit" :disabled="!formIsValid">Hoàn thành</button>
+      <button type="submit" :disabled="!formIsValid">Tiếp tục</button>
     </form>
   </div>
 </template>
@@ -31,18 +35,21 @@
       return {
         nameReal: '',
         nameDiscord: '',
+        ageReal: '',
         contentSkill: '',
         contentIdea: ''
       }
     },
     methods: {
       onSubmitWho () {
-        console.log({
+        const userInfo = {
           nameReal: this.nameReal,
           nameDiscord: this.nameDiscord,
+          ageReal: this.ageReal,
           contentSkill: this.contentSkill,
           contentIdea: this.contentIdea
-        })
+        }
+        this.$store.dispatch('createUserInfo', userInfo)
         this.$router.push({ name: 'quiz-result' })
       }
     },
