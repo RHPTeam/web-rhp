@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <router-link :to="{ name: 'show-quiz' }">
+        <router-link tag="button" :to="{ name: 'show-quiz' }">
             Show all quiz
         </router-link>
         <h2>Thêm câu hỏi vào thư viện câu hỏi RHP Team</h2>
@@ -69,16 +69,22 @@
 </script>
 
 <style scoped>
-  .main {
-    max-width: 1184px;
-    height: calc(100vh);
-    background: #f5f5fa;
-    margin: 0 auto;
-  }
-  .main > a {
-      text-decoration: underline;
-      padding-left: 6.6em;
-  }
+    .main {
+        max-width: 1184px;
+        height: calc(100vh);
+        background: #f5f5fa;
+        margin: 0 auto;
+    }
+    .main > button {
+        margin-left: 6.6em;
+        background: #8075b5;
+        color: #fff;
+        padding: 6px;
+        width: 15%;
+        border: 0;
+        outline: 0;
+        margin-top: 1em;
+    }
     .main h2 {
         text-align: center;
         text-transform: uppercase;
@@ -149,5 +155,7 @@
         color: black;
         cursor: pointer;
     }
-
+    label[for="text"] {
+        margin-bottom: 1em;
+    }
 </style>
