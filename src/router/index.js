@@ -8,6 +8,11 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/',
+      name: 'home',
+      component: () => import('@/views/home/index')
+    },
+    {
       path: '/quiz',
       component: () => import('@/views/quiz/index'),
       children: [

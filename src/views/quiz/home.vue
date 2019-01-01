@@ -2,6 +2,7 @@
  <div class="main">
    <div class="main--wrapper">
      <div class="box">
+       <img src="@/assets/images/rhp-official-logo.svg" alt="Logo RHP Team">
        <h1>Chào mừng bạn đã đến với hệ thống test đầu vào của RHP Team Discord</h1>
        <p>Bạn có thể bắt đầu ngay bây giờ bằng cách nút bên dưới :))</p>
        <div class="actions">
@@ -21,6 +22,9 @@
 .box {
   text-align: center;
   margin: 10% auto 0 auto;
+}
+.box img {
+  width: 300px;
 }
 button {
   display: inline-block;
