@@ -7,7 +7,7 @@
                 <li v-for="item in quiz.answers">{{ item }}</li>
             </ul>
         </div>
-        <button type="submit">Come back</button>
+        <router-link tag="button" :to="{ name: 'show-quiz' }" type="submit">Come back</router-link>
     </div>
 </template>
 
@@ -66,5 +66,6 @@
         margin-top: 2em;
         margin-left: 6.6em;
         margin-bottom: 2em;
+        cursor: pointer;
     }
 </style>
