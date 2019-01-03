@@ -10,6 +10,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     quizLibrary: [],
+    userResults: [],
     userResult: null,
     userInfo: null,
     user: null,
@@ -33,6 +34,17 @@ export const store = new Vuex.Store({
         });
       };
     },
+    // Getter all user's results from firebase
+    loadUserResults(state) {
+      return state.userResults.reverse()
+    },
+    loadInfoUserResult(state) {
+      return userResultId => {
+        return state.userResults.find(userResult => {
+          return userResult.id === userResultId
+        })
+      }
+    },
     loadUserResult(state) {
       return state.userResult;
     },
@@ -52,6 +64,9 @@ export const store = new Vuex.Store({
   mutations: {
     setLoadQuizs(state, payload) {
       state.quizLibrary = payload;
+    },
+    setLoadUserResults(state, payload) {
+      state.userResults = payload
     },
     createQuiz(state, payload) {
       state.quizLibrary.push(payload);
@@ -101,6 +116,31 @@ export const store = new Vuex.Store({
           commit("setLoading", true);
         });
     },
+    loadUserResults({ commit }) {
+      commit("setLoading", true);
+      firebase
+        .database()
+        .ref("results")
+        .once("value")
+        .then(data => {
+          const userResults = [];
+          const obj = data.val();
+          console.log({obj})
+          for (let key in obj) {
+            userResults.push({
+              id: key,
+              results: obj[key].results,
+              userInfo: obj[key].userInfo
+            });
+          }
+          commit("setLoadUserResults", userResults)
+          commit("setLoading", false);
+        })
+        .catch(error => {
+          console.log(error);
+          commit("setLoading", true);
+        })
+    },
     loadQuizs({ commit }) {
       commit("setLoading", true);
       firebase
@@ -119,7 +159,7 @@ export const store = new Vuex.Store({
             });
           }
           // Random 30 question
-          const quizRand = arrayRand(quizs, 3);
+          const quizRand = arrayRand(quizs, 30);
           commit("setLoadQuizs", quizRand);
           commit("setLoading", false);
         })

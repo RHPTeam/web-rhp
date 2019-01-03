@@ -14,7 +14,7 @@
           <li
             v-for="(item, index) in questions[currentQuestion - 1].answers"
             v-bind:key="index"
-            @click="choice(index);"
+            @click="choice(index)"
             :class="{ active: index == clickedIndex }"
           >
             {{ item }}
@@ -32,10 +32,10 @@
       </button>
 
       <button @click="finnish" v-else>Finnish</button>
-      <button @click="statusExplain = !statusExplain;">
+      <button @click="statusExplain = !statusExplain">
         Thêm giải thích của bạn
       </button>
-      <hr>
+      <hr />
       <div class="stats">
         <div class="bars">
           <div
@@ -100,19 +100,21 @@ export default {
       // Push data result of user to array data
       const result = {
         questionId: this.questions[this.currentQuestion - 1].id,
+        questionName: this.questions[this.currentQuestion - 1].question,
         choice: this.clickedIndex,
         contentExplain: this.result.contentExplain
       };
       this.userResult.results.push(result);
-      this.result.contentExplain = ''
+      this.result.contentExplain = "";
+      this.clickedIndex = "";
       // Next question
       return this.currentQuestion++;
-
     },
     finnish() {
       // Push data result of user to array data
       const result = {
         questionId: this.questions[this.currentQuestion - 1].id,
+        questionName: this.questions[this.currentQuestion - 1].question,
         choice: this.clickedIndex,
         contentExplain: this.result.contentExplain
       };
@@ -201,6 +203,6 @@ hr {
   text-align: center;
 }
 .active {
-  background-color: red!important;
+  background-color: red !important;
 }
 </style>

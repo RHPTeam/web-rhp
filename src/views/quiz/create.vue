@@ -55,6 +55,7 @@
           createdAt: this.quiz.createdAt
         }
         this.$store.dispatch('createQuiz', quizData)
+        this.quiz.question = "";
       }
     },
     computed: {

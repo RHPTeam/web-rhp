@@ -60,6 +60,19 @@ export default new Router({
           beforeEnter: Authenticate
         },
         {
+          path: 'user-result',
+          name: 'user-result',
+          component: () => import('@/views/quiz/user-result'),
+          beforeEnter: Authenticate
+        },
+        {
+          path: 'user-result/:userResultId',
+          name: 'info-user-result',
+          props: true,
+          component: () => import('@/views/quiz/info-user-result'),
+          beforeEnter: Authenticate
+        },
+        {
           path: 'show',
           name: 'show-quiz',
           component: () => import('@/views/quiz/show'),
